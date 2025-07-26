@@ -73,18 +73,31 @@ def onAppStart(app):
     app.currDragImageDX = 0
     app.currDragImageDY = 0
     app.isDraggingImage = False  # the user could be dragging the map, not the photo
-    
+
     app.startDragX = 0
     app.startDragY = 0
 
+    app.map = Image.open("CMUMap.png")
+    app.mapWidth, app.mapHeight = app.map.size
     app.mapScale = 1
-    app.mapX = None
-    app.mapY = None
+    
+    app.mapViewWidth, app.mapViewHeight = 216, 216
+    app.mapView = app.map.crop((app.mapWidth // 2 - app.mapViewWidth // 2, 
+                                app.mapHeight // 2 - app.mapViewHeight // 2, 
+                               app.mapWidth // 2 + app.mapViewWidth // 2, 
+                               app.mapHeight // 2 + app.mapViewHeight // 2))
+    
+    app.mapTopLeftX = 1140
+    app.mapTopLeftY = 600
+    app.currDragMapDX = 0
+    app.currDragMapDY = 0
+    app.totalMapDX = 0
+    app.totalMapDY = 0
 
     app.guessX = None
     app.guessY = None
 
-    app.l1 = Location(0, 0, 0, "Locations/PXL_20250724_165250547.jpg")
+    app.l1 = Location(0, 0, 0, "Locations/PXL_20250724_202010299.jpg")
 
 ################################################################################
 # Starting Screen
@@ -107,8 +120,7 @@ def starting_redrawAll(app):
              fill = hardColor, align = 'center')
     
     drawLabel("Normal Mode", app.width // 2, 525, size = 24, fill = 'white')
-    drawLabel("Hard Mode", app.width // 2, 650, size = 24, fill = 'white') 
-    # drawImage(app.allLocations[0], 0, 0)   
+    drawLabel("Hard Mode", app.width // 2, 650, size = 24, fill = 'white')   
 
 def starting_onMousePress(app, mouseX, mouseY):
     buttonWidth = 200
@@ -139,10 +151,10 @@ def guessing_redrawAll(app):
     # display the map on the bottom right
     imageCenterDX = app.currDragImageDX + app.totalImageDX
     imageCenterDY = app.currDragImageDY + app.totalImageDY
-
-
     
     app.l1.draw(app, imageCenterDX, imageCenterDY, app.imageScale)
+    drawImage(CMUImage(app.mapView), app.mapTopLeftX, app.mapTopLeftY, 
+              border = 'white', borderWidth = 100) #fix border not showing up later
 
 def guessing_onMousePress(app, mouseX, mouseY):
     # if the mouse is on the map, enter a guess on the map
@@ -152,44 +164,77 @@ def guessing_onMousePress(app, mouseX, mouseY):
     app.startDragX = mouseX
     app.startDragY = mouseY
 
-    
+    if not (app.mapTopLeftX <= mouseX <= app.mapTopLeftX + app.mapViewWidth and
+            app.mapTopLeftY <= mouseY <= app.mapTopLeftY + app.mapViewHeight):
+        app.isDraggingImage = True
 
 
 def guessing_onMouseDrag(app, mouseX, mouseY):
     # if the mouse is on the image and not the map, drag the image
     # if the mouse is on the map, drag the map
+    if app.isDraggingImage:
 
-    app.currDragImageDX = mouseX - app.startDragX
-    app.currDragImageDY = mouseY - app.startDragY
+        app.currDragImageDX = mouseX - app.startDragX
+        app.currDragImageDY = mouseY - app.startDragY
 
-    scaledImageWidth = app.defaultImageWidth * app.imageScale
-    scaledImageHeight = app.defaultImageHeight * app.imageScale
-    imageCenterDX = app.currDragImageDX + app.totalImageDX
-    imageCenterDY = app.currDragImageDY + app.totalImageDY
+        scaledImageWidth = app.defaultImageWidth * app.imageScale
+        scaledImageHeight = app.defaultImageHeight * app.imageScale
+        imageCenterDX = app.currDragImageDX + app.totalImageDX
+        imageCenterDY = app.currDragImageDY + app.totalImageDY
 
-    # These tests make sure that the image of the location is not dragged off
-    # of the screen.
-    if imageCenterDX >= scaledImageWidth // 2 - app.width // 2:
-        app.totalImageDX = scaledImageWidth // 2 - app.width // 2
-        app.currDragImageDX = 0
-    if imageCenterDX <= -(scaledImageWidth // 2 - app.width // 2):
-        app.totalImageDX = -(scaledImageWidth // 2 - app.width // 2)
-        app.currDragImageDX = 0
+        # These tests make sure that the image of the location is not dragged
+        # off of the screen.
+        if imageCenterDX >= scaledImageWidth // 2 - app.width // 2:
+            app.totalImageDX = scaledImageWidth // 2 - app.width // 2
+            app.startDragX = mouseX 
+            # resetting the start position of the drag so the image 
+            # doesn't get "stuck" at any side
+            app.currDragImageDX = 0
+        if imageCenterDX <= -(scaledImageWidth // 2 - app.width // 2):
+            app.totalImageDX = -(scaledImageWidth // 2 - app.width // 2)
+            app.startDragX = mouseX
+            app.currDragImageDX = 0
 
-    if imageCenterDY >= scaledImageHeight // 2 - app.height // 2:
-        app.totalImageDY = scaledImageHeight // 2 - app.height // 2
-        app.currDragImageDY = 0
-    if imageCenterDY <= -(scaledImageHeight // 2 - app.height // 2):
-        app.totalImageDY = -(scaledImageHeight // 2 - app.height // 2)
-        app.currDragImageDY = 0
+        if imageCenterDY >= scaledImageHeight // 2 - app.height // 2:
+            app.totalImageDY = scaledImageHeight // 2 - app.height // 2
+            app.startDragY = mouseY
+            app.currDragImageDY = 0
+        if imageCenterDY <= -(scaledImageHeight // 2 - app.height // 2):
+            app.totalImageDY = -(scaledImageHeight // 2 - app.height // 2)
+            app.startDragY = mouseY
+            app.currDragImageDY = 0
+    else: # the map is being dragged
+
+        app.currDragMapDX = mouseX - app.startDragX
+        app.currDragMapDY = mouseY - app.startDragY
+        
+        # The signs for app.currDragMapDX and DY are negative, unlike with the location image
+        # This is because we are dragging the box cropping the map, and not the
+        # map itself. (Which reverses the sign)
+        view = (app.mapWidth // 2 - app.mapViewWidth // 2 - app.currDragMapDX - app.totalMapDX, 
+                app.mapHeight // 2 - app.mapViewHeight // 2 - app.currDragMapDY - app.totalMapDY, 
+                app.mapWidth // 2 + app.mapViewWidth // 2 - app.currDragMapDX - app.totalMapDX, 
+                app.mapHeight // 2 + app.mapViewHeight // 2 - app.currDragMapDY - app.totalMapDY)
+        
+        app.mapView = app.map.crop(view)
+
+
 
 def guessing_onMouseRelease(app, mouseX, mouseY):
-
+    
     # This updates the total distance by which the image has been dragged
-    app.totalImageDX += app.currDragImageDX
-    app.totalImageDY += app.currDragImageDY
-    app.currDragImageDX = 0
-    app.currDragImageDY = 0
+    if app.isDraggingImage:
+        app.totalImageDX += app.currDragImageDX
+        app.totalImageDY += app.currDragImageDY
+        app.currDragImageDX = 0
+        app.currDragImageDY = 0
+    else:
+        app.totalMapDX += app.currDragMapDX
+        app.totalMapDY += app.currDragMapDY
+        app.currDragMapDX = 0
+        app.currDragMapDY = 0
+
+    app.isDraggingImage = False
 
 
 
