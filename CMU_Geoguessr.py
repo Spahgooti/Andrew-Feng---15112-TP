@@ -78,6 +78,7 @@ def onAppStart(app):
     app.startDragY = 0
 
     app.map = Image.open("CMUMap.png")
+    # the default map size is 1362 x 1050
     app.mapWidth, app.mapHeight = app.map.size
     app.mapScale = 1
     
@@ -87,8 +88,8 @@ def onAppStart(app):
                                app.mapWidth // 2 + app.mapViewWidth // 2, 
                                app.mapHeight // 2 + app.mapViewHeight // 2))
     
-    app.mapTopLeftX = 1140
-    app.mapTopLeftY = 600
+    app.mapTopLeftX = app.width - app.mapViewWidth - 50
+    app.mapTopLeftY = app.height - app.mapViewHeight - 50
     app.currDragMapDX = 0
     app.currDragMapDY = 0
     app.totalMapDX = 0
@@ -153,8 +154,7 @@ def guessing_redrawAll(app):
     imageCenterDY = app.currDragImageDY + app.totalImageDY
     
     app.l1.draw(app, imageCenterDX, imageCenterDY, app.imageScale)
-    drawImage(CMUImage(app.mapView), app.mapTopLeftX, app.mapTopLeftY, 
-              border = 'white', borderWidth = 100) #fix border not showing up later
+    drawImage(CMUImage(app.mapView), app.mapTopLeftX, app.mapTopLeftY) #fix border not showing up later
 
 def guessing_onMousePress(app, mouseX, mouseY):
     # if the mouse is on the map, enter a guess on the map
@@ -172,8 +172,14 @@ def guessing_onMousePress(app, mouseX, mouseY):
 def guessing_onMouseDrag(app, mouseX, mouseY):
     # if the mouse is on the image and not the map, drag the image
     # if the mouse is on the map, drag the map
-    if app.isDraggingImage:
 
+    if app.isDraggingImage:
+        moveImage(app, mouseX, mouseY)
+    else: # the map is being dragged
+        moveMap(app, mouseX, mouseY)
+
+
+def moveImage(app, mouseX, mouseY):
         app.currDragImageDX = mouseX - app.startDragX
         app.currDragImageDY = mouseY - app.startDragY
 
@@ -203,22 +209,53 @@ def guessing_onMouseDrag(app, mouseX, mouseY):
             app.totalImageDY = -(scaledImageHeight // 2 - app.height // 2)
             app.startDragY = mouseY
             app.currDragImageDY = 0
-    else: # the map is being dragged
 
+
+def moveMap(app, mouseX, mouseY):
         app.currDragMapDX = mouseX - app.startDragX
         app.currDragMapDY = mouseY - app.startDragY
         
-        # The signs for app.currDragMapDX and DY are negative, unlike with the location image
+        # The signs for app.currDragMap DX and DY are negative, unlike with the 
+        # location image.
         # This is because we are dragging the box cropping the map, and not the
         # map itself. (Which reverses the sign)
-        view = (app.mapWidth // 2 - app.mapViewWidth // 2 - app.currDragMapDX - app.totalMapDX, 
-                app.mapHeight // 2 - app.mapViewHeight // 2 - app.currDragMapDY - app.totalMapDY, 
-                app.mapWidth // 2 + app.mapViewWidth // 2 - app.currDragMapDX - app.totalMapDX, 
-                app.mapHeight // 2 + app.mapViewHeight // 2 - app.currDragMapDY - app.totalMapDY)
+        mapViewLeft = app.mapWidth // 2 - app.mapViewWidth // 2 - app.currDragMapDX - app.totalMapDX
+        mapViewTop = app.mapHeight // 2 - app.mapViewHeight // 2 - app.currDragMapDY - app.totalMapDY
+        mapViewRight = app.mapWidth // 2 + app.mapViewWidth // 2 - app.currDragMapDX - app.totalMapDX
+        mapViewBottom = app.mapHeight // 2 + app.mapViewHeight // 2 - app.currDragMapDY - app.totalMapDY
+        # Also, note that these values are with respect to the image of the map,
+        # and not the canvas itself
+        
+        if mapViewLeft <= 0:
+            mapViewLeft = 0
+            mapViewRight = app.mapViewWidth
+            app.totalMapDX = app.mapWidth // 2 - app.mapViewWidth // 2
+            app.currDragMapDX = 0
+            app.startDragX = mouseX
+        if mapViewRight >= app.mapWidth:
+            mapViewLeft = app.mapWidth - app.mapViewWidth
+            mapViewRight = app.mapWidth
+            app.totalMapDX = -(app.mapWidth // 2 - app.mapViewWidth // 2)
+            app.currDragMapDX = 0
+            app.startDragX = mouseX
+
+        
+        if mapViewTop <= 0:
+            mapViewTop = 0
+            mapViewBottom = app.mapViewHeight
+            app.totalMapDY = app.mapHeight // 2 - app.mapViewHeight // 2
+            app.currDragMapDY = 0
+            app.startDragY = mouseY
+        if mapViewBottom >= app.mapHeight:
+            mapViewTop = app.mapHeight - app.mapViewHeight
+            mapViewBottom = app.mapHeight
+            app.totalMapDY = -(app.mapHeight // 2 - app.mapViewHeight // 2)
+            app.currDragMapDY = 0
+            app.startDragY = mouseY
+
+        view = (mapViewLeft, mapViewTop, mapViewRight, mapViewBottom)
         
         app.mapView = app.map.crop(view)
-
-
 
 def guessing_onMouseRelease(app, mouseX, mouseY):
     
@@ -240,11 +277,28 @@ def guessing_onMouseRelease(app, mouseX, mouseY):
 
 
 def guessing_onKeyPress(app, key):
+    if key == 'z':
+        zoomMap(app, -0.1)
+
     # if a guess has been entered, actually enter the guess
     # calculate the score/distance of the guess from the true location
     # add score to the user's current score
     # switch the screen to the post guess screen
-    pass
+
+
+def zoomMap(app, scaleModifier):
+    # the default map size is 1362 x 1050
+    width, height = 1362, 1050
+    app.mapScale += scaleModifier
+    app.mapWidth, app.mapHeight = width * app.mapScale, height * app.mapScale
+
+    app.map = app.map.resize((int(app.mapWidth), int(app.mapHeight)))
+    app.mapView = app.map.crop((app.mapWidth // 2 - app.mapViewWidth // 2, 
+                                app.mapHeight // 2 - app.mapViewHeight // 2, 
+                               app.mapWidth // 2 + app.mapViewWidth // 2, 
+                               app.mapHeight // 2 + app.mapViewHeight // 2))
+
+    # casting width and height to ints because of some cmu graphics bug
 
 ################################################################################
 # Post Guess Screen

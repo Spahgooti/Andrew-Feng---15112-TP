@@ -1,0 +1,2 @@
+def initializeImages():
+    pass
