@@ -134,7 +134,10 @@ def resetRound(app):
 # Starting Screen
 ################################################################################
 
-def drawStart(app):
+def starting_redrawAll(app):
+    drawStart(app)
+
+def drawStart(app): # This will be used several times
     backgroundGradient = gradient('indigo', 'darkSlateBlue', start = 'bottom')
     normalColor = rgb(151, 232, 81)
     hardColor = rgb(233, 69, 96)
@@ -154,8 +157,7 @@ def drawStart(app):
     drawLabel('Normal Mode', app.width // 2, 525, size = 24, fill = 'white')
     drawLabel('Hard Mode', app.width // 2, 650, size = 24, fill = 'white')   
 
-def starting_redrawAll(app):
-    drawStart(app)
+
 
 def starting_onMousePress(app, mouseX, mouseY):
     buttonWidth = 200
@@ -174,6 +176,8 @@ def starting_onMousePress(app, mouseX, mouseY):
         app.gameLocations = getGameLocations(app)
         setActiveScreen('guessing')
 
+
+
 def getGameLocations(app):
     currLocations = []
 
@@ -191,10 +195,11 @@ def getGameLocations(app):
 ################################################################################
 # Guessing Screen
 ################################################################################
-
+    
 def guessing_redrawAll(app):
-    # display the first image over the full screen
-    # display the map on the bottom right
+    drawGuessing(app)
+
+def drawGuessing(app): # This will be used several times
     imageCenterDX = app.currDragImageDX + app.totalImageDX
     imageCenterDY = app.currDragImageDY + app.totalImageDY
     
@@ -202,8 +207,6 @@ def guessing_redrawAll(app):
     drawImage(CMUImage(app.mapView), app.mapTopLeftX, app.mapTopLeftY, 
               opacity = app.mapOpacity)
 
-
-# NoTE TO SELF: make sure that the star isn't visible if the user scrolls the guess off the map
     if app.guessX != None and app.guessY != None: 
         
         mapViewLeft = app.mapWidth // 2 - app.mapViewWidth // 2 - app.currDragMapDX - app.totalMapDX
@@ -488,13 +491,7 @@ def postGuess_redrawAll(app):
 
     else:
         if app.round < 5:
-            guessing_redrawAll(app)
-            # imageCenterDX = app.currDragImageDX + app.totalImageDX
-            # imageCenterDY = app.currDragImageDY + app.totalImageDY
-            
-            # app.gameLocations[app.round].draw(app, imageCenterDX, 
-            #                                 imageCenterDY, app.imageScale)
-            # drawImage(CMUImage(app.mapView), app.mapTopLeftX, app.mapTopLeftY)
+            drawGuessing(app)
             
         else: # draw the end screen
             backgroundGradient = gradient('indigo', 'darkSlateBlue', 
