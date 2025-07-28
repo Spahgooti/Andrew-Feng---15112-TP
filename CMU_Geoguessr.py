@@ -37,11 +37,48 @@ class Location():
 #     return listOfImages
 
 def initializeLocations(app):
+    app.allLocations.append(Location("Flowers and a Bench", 490, 856, 0, "Locations/baker1.jpg"))
+    app.allLocations.append(Location("Brick Ceiling", 466, 854, 2, "Locations/baker2.jpg"))
+    app.allLocations.append(Location("Glass Pyramid", 434, 858, 1, "Locations/baker3.jpg"))
+    app.allLocations.append(Location("Long Hall", 440, 848, 0, "Locations/baker4.jpg"))
+    app.allLocations.append(Location("Sofas", 458, 848, 2, "Locations/baker5.jpg"))
+
+    app.allLocations.append(Location("Sculptures 1", 618, 788, 1, "Locations/cfa1.jpg"))
+    app.allLocations.append(Location("Vaulted Ceiling", 630, 814, 1, "Locations/cfa2.jpg"))
+    app.allLocations.append(Location("Sculptures 2", 612, 822, 1, "Locations/cfa3.jpg"))
+
+    app.allLocations.append(Location("", 612, 578, 0, "Locations/cuc1.jpg"))
+    app.allLocations.append(Location("", 708, 592, 0, "Locations/cuc2.jpg"))
+    app.allLocations.append(Location("", 734, 542, 0, "Locations/cuc3.jpg"))
+    app.allLocations.append(Location("", 734, 542, 0, "Locations/cuc4.jpg"))
+    app.allLocations.append(Location("", 762, 524, 1, "Locations/cuc5.jpg"))
+    app.allLocations.append(Location("", 714, 494, 1, "Locations/cuc6.jpg"))
+    app.allLocations.append(Location("", 736, 514, 1, "Locations/cuc7.jpg"))
+    app.allLocations.append(Location("", 802, 538, 0, "Locations/cuc8.jpg"))
+    app.allLocations.append(Location("", 830, 546, 0, "Locations/cuc9.jpg"))
+    app.allLocations.append(Location("Noodles, Don't Noodles", 770, 530, 0, "Locations/cuc10.jpg"))
+    app.allLocations.append(Location("", 752, 528, 0, "Locations/cuc11.jpg"))
+    app.allLocations.append(Location("", 818, 394, 1, "Locations/cuc12.jpg"))
+    app.allLocations.append(Location("", 752, 380, 0, "Locations/cuc13.jpg"))
+
+    app.allLocations.append(Location("", 540, 702, 0, "Locations/cut1.jpg"))
+    app.allLocations.append(Location("", 568, 666, 0, "Locations/cut2.jpg"))
+    app.allLocations.append(Location("", 658, 622, 0, "Locations/cut3.jpg"))
+    app.allLocations.append(Location("", 644, 384, 0, "Locations/cut4.jpg"))
+    app.allLocations.append(Location("", 612, 394, 1, "Locations/cut5.jpg"))
+    app.allLocations.append(Location("", 610, 408, 0, "Locations/cut6.jpg"))
+    app.allLocations.append(Location("", 542, 666, 1, "Locations/cut7.jpg"))
+    app.allLocations.append(Location("Stumped?", 544, 662, 1, "Locations/cut8.jpg"))
+    app.allLocations.append(Location("", 558, 614, 1, "Locations/cut9.jpg"))
+    app.allLocations.append(Location("", 570, 568, 0, "Locations/cut10.jpg"))
+    app.allLocations.append(Location("", 556, 548, 1, "Locations/cut11.jpg"))
+
+
     app.allLocations.append(Location("Evacuation", 413, 170, 2, "Locations/tepper1.jpg"))
     app.allLocations.append(Location("An Enthralling Bulletin Board", 360, 216, 2, "Locations/tepper2.jpg"))
     app.allLocations.append(Location("Big Glass Window", 364, 214, 0, "Locations/tepper3.jpg"))
-    app.allLocations.append(Location("Cathedral View", 332, 232, 2, "Locations/tepper4.jpg"))
-    app.allLocations.append(Location("Message", 690, 878, 2, "Locations/kraus1.jpg"))
+    app.allLocations.append(Location("Cathedral View", 332, 232, 1, "Locations/tepper4.jpg"))
+    app.allLocations.append(Location("Numbers", 712, 848, 1, "Locations/kraus1.jpg"))
 
 def onAppStart(app):
     # from my phone's camera
@@ -94,6 +131,8 @@ def onAppStart(app):
     app.currDragMapDY = 0
     app.totalMapDX = 0
     app.totalMapDY = 0
+
+    app.isDraggingMap = False
 
     # These variables are taken with respect to the map. Note that (0, 0) is 
     # the top left of the full map.)
@@ -248,6 +287,8 @@ def guessing_onMousePress(app, mouseX, mouseY, button):
         if not (app.mapTopLeftX <= mouseX <= app.mapTopLeftX + app.mapViewWidth 
                 and app.mapTopLeftY <= mouseY <= app.mapTopLeftY + app.mapViewHeight):
             app.isDraggingImage = True
+        else:
+            app.isDraggingMap = True
     if button == 2:
         if (app.mapTopLeftX <= mouseX <= app.mapTopLeftX + app.mapViewWidth and
             app.mapTopLeftY <= mouseY <= app.mapTopLeftY + app.mapViewHeight):
@@ -265,7 +306,7 @@ def guessing_onMouseDrag(app, mouseX, mouseY):
 
     if app.isDraggingImage:
         moveImage(app, mouseX, mouseY)
-    else: # the map is being dragged
+    elif app.isDraggingMap: # the map is being dragged
         moveMap(app, mouseX, mouseY)
 
 
@@ -363,6 +404,7 @@ def guessing_onMouseRelease(app, mouseX, mouseY):
         app.currDragMapDY = 0
 
     app.isDraggingImage = False
+    app.isDraggingMap = False
 
 
 
