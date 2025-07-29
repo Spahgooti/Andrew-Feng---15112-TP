@@ -37,41 +37,52 @@ class Location():
 #     return listOfImages
 
 def initializeLocations(app):
-    app.allLocations.append(Location("Flowers and a Bench", 490, 856, 0, "Locations/baker1.jpg"))
-    app.allLocations.append(Location("Brick Ceiling", 466, 854, 2, "Locations/baker2.jpg"))
-    app.allLocations.append(Location("Glass Pyramid", 434, 858, 1, "Locations/baker3.jpg"))
-    app.allLocations.append(Location("Long Hall", 440, 848, 0, "Locations/baker4.jpg"))
-    app.allLocations.append(Location("Sofas", 458, 848, 2, "Locations/baker5.jpg"))
+    # app.allLocations.append(Location("Flowers and a Bench", 490, 856, 0, "Locations/baker1.jpg"))
+    # app.allLocations.append(Location("Brick Ceiling", 466, 854, 2, "Locations/baker2.jpg"))
+    # app.allLocations.append(Location("Glass Pyramid", 434, 858, 1, "Locations/baker3.jpg"))
+    # app.allLocations.append(Location("Long Hall", 440, 848, 0, "Locations/baker4.jpg"))
+    # app.allLocations.append(Location("Sofas", 458, 848, 2, "Locations/baker5.jpg"))
 
-    app.allLocations.append(Location("Sculptures 1", 618, 788, 1, "Locations/cfa1.jpg"))
-    app.allLocations.append(Location("Vaulted Ceiling", 630, 814, 1, "Locations/cfa2.jpg"))
-    app.allLocations.append(Location("Sculptures 2", 612, 822, 1, "Locations/cfa3.jpg"))
+    # app.allLocations.append(Location("Sculptures 1", 618, 788, 1, "Locations/cfa1.jpg"))
+    # app.allLocations.append(Location("Vaulted Ceiling", 630, 814, 1, "Locations/cfa2.jpg"))
+    # app.allLocations.append(Location("Sculptures 2", 612, 822, 1, "Locations/cfa3.jpg"))
 
-    app.allLocations.append(Location("", 612, 578, 0, "Locations/cuc1.jpg"))
-    app.allLocations.append(Location("", 708, 592, 0, "Locations/cuc2.jpg"))
-    app.allLocations.append(Location("", 734, 542, 0, "Locations/cuc3.jpg"))
-    app.allLocations.append(Location("", 734, 542, 0, "Locations/cuc4.jpg"))
-    app.allLocations.append(Location("", 762, 524, 1, "Locations/cuc5.jpg"))
-    app.allLocations.append(Location("", 714, 494, 1, "Locations/cuc6.jpg"))
-    app.allLocations.append(Location("", 736, 514, 1, "Locations/cuc7.jpg"))
-    app.allLocations.append(Location("", 802, 538, 0, "Locations/cuc8.jpg"))
-    app.allLocations.append(Location("", 830, 546, 0, "Locations/cuc9.jpg"))
-    app.allLocations.append(Location("Noodles, Don't Noodles", 770, 530, 0, "Locations/cuc10.jpg"))
-    app.allLocations.append(Location("", 752, 528, 0, "Locations/cuc11.jpg"))
-    app.allLocations.append(Location("", 818, 394, 1, "Locations/cuc12.jpg"))
-    app.allLocations.append(Location("", 752, 380, 0, "Locations/cuc13.jpg"))
+    # app.allLocations.append(Location("", 686, 576, 0, "Locations/cuc1.jpg"))
+    # app.allLocations.append(Location("", 708, 592, 0, "Locations/cuc2.jpg"))
+    # app.allLocations.append(Location("", 734, 542, 0, "Locations/cuc3.jpg"))
+    # app.allLocations.append(Location("", 734, 542, 0, "Locations/cuc4.jpg"))
+    # app.allLocations.append(Location("", 762, 524, 1, "Locations/cuc5.jpg"))
+    # app.allLocations.append(Location("", 714, 494, 1, "Locations/cuc6.jpg"))
+    # app.allLocations.append(Location("", 736, 514, 1, "Locations/cuc7.jpg"))
+    # app.allLocations.append(Location("", 802, 538, 0, "Locations/cuc8.jpg"))
+    # app.allLocations.append(Location("", 830, 546, 0, "Locations/cuc9.jpg"))
+    # app.allLocations.append(Location("Noodles, Don't Noodles", 770, 530, 0, "Locations/cuc10.jpg"))
+    # app.allLocations.append(Location("", 752, 528, 0, "Locations/cuc11.jpg"))
+    # app.allLocations.append(Location("", 818, 394, 1, "Locations/cuc12.jpg"))
+    # app.allLocations.append(Location("", 752, 380, 0, "Locations/cuc13.jpg"))
 
-    app.allLocations.append(Location("", 540, 702, 0, "Locations/cut1.jpg"))
-    app.allLocations.append(Location("", 568, 666, 0, "Locations/cut2.jpg"))
-    app.allLocations.append(Location("", 658, 622, 0, "Locations/cut3.jpg"))
-    app.allLocations.append(Location("", 644, 384, 0, "Locations/cut4.jpg"))
-    app.allLocations.append(Location("", 612, 394, 1, "Locations/cut5.jpg"))
-    app.allLocations.append(Location("", 610, 408, 0, "Locations/cut6.jpg"))
-    app.allLocations.append(Location("", 542, 666, 1, "Locations/cut7.jpg"))
-    app.allLocations.append(Location("Stumped?", 544, 662, 1, "Locations/cut8.jpg"))
-    app.allLocations.append(Location("", 558, 614, 1, "Locations/cut9.jpg"))
-    app.allLocations.append(Location("", 570, 568, 0, "Locations/cut10.jpg"))
-    app.allLocations.append(Location("", 556, 548, 1, "Locations/cut11.jpg"))
+    # app.allLocations.append(Location("", 540, 702, 0, "Locations/cut1.jpg"))
+    # app.allLocations.append(Location("", 568, 666, 0, "Locations/cut2.jpg"))
+    # app.allLocations.append(Location("", 658, 622, 0, "Locations/cut3.jpg"))
+    # app.allLocations.append(Location("", 644, 384, 0, "Locations/cut4.jpg"))
+    # app.allLocations.append(Location("", 612, 394, 1, "Locations/cut5.jpg"))
+    # app.allLocations.append(Location("", 610, 408, 0, "Locations/cut6.jpg"))
+    # app.allLocations.append(Location("", 542, 666, 1, "Locations/cut7.jpg"))
+    # app.allLocations.append(Location("Stumped?", 544, 662, 1, "Locations/cut8.jpg"))
+    # app.allLocations.append(Location("", 558, 614, 1, "Locations/cut9.jpg"))
+    # app.allLocations.append(Location("", 570, 568, 0, "Locations/cut10.jpg"))
+    # app.allLocations.append(Location("", 556, 548, 1, "Locations/cut11.jpg"))
+    # app.allLocations.append(Location("", 550, 560, 2, "Locations/cut12.jpg"))
+
+    # app.allLocations.append(Location("", 532, 386, 2, "Locations/cyert1.jpg"))
+    # app.allLocations.append(Location("", 486, 366, 2, "Locations/cyert2.jpg"))
+
+    # app.allLocations.append(Location("", 378, 664, 2, "Locations/doherty1.jpg"))
+    # app.allLocations.append(Location("", 446, 708, 1, "Locations/doherty2.jpg"))
+    # app.allLocations.append(Location("", 448, 708, 1, "Locations/doherty3.jpg"))
+    app.allLocations.append(Location("", 500, 690, 0, "Locations/doherty4.jpg"))
+    app.allLocations.append(Location("", 490, 604, 1, "Locations/doherty5.jpg"))
+    app.allLocations.append(Location("", 510, 634, 1, "Locations/doherty6.jpg"))
 
 
     app.allLocations.append(Location("Evacuation", 413, 170, 2, "Locations/tepper1.jpg"))
@@ -131,7 +142,6 @@ def onAppStart(app):
     app.currDragMapDY = 0
     app.totalMapDX = 0
     app.totalMapDY = 0
-
     app.isDraggingMap = False
 
     # These variables are taken with respect to the map. Note that (0, 0) is 
@@ -168,6 +178,7 @@ def resetRound(app):
     app.currDragImageDX = 0
     app.currDragImageDY = 0
     app.isDraggingImage = False
+    app.isDraggingMap = False
 
 ################################################################################
 # Starting Screen
@@ -219,14 +230,18 @@ def starting_onMousePress(app, mouseX, mouseY):
 
 def getGameLocations(app):
     currLocations = []
+    numLocations = len(app.allLocations)
 
     while len(currLocations) < 5:
-        numLocations = len(app.allLocations)
         locationIdx = random.randint(0, numLocations - 1)
         location = app.allLocations[locationIdx]
         
-        if location.difficulty <= 2000 and location not in currLocations:
-            currLocations.append(location)
+        if app.gameDifficulty == 'Normal':
+            if 0 <= location.difficulty <= 1 and location not in currLocations:
+                currLocations.append(location)
+        elif app.gameDifficulty == 'Hard':
+            if 1 <= location.difficulty <= 2 and location not in currLocations:
+                currLocations.append(location)
     
     return currLocations
 
@@ -413,6 +428,7 @@ def guessing_onKeyPress(app, key):
     if key == 'space':
         if app.guessX != None and app.guessY != None: 
             setActiveScreen("postGuess")
+            print(app.round)
     if key == 'z':
         if app.mapScale >= 0.3:
             zoomMap(app, 0.8)
@@ -536,17 +552,7 @@ def postGuess_redrawAll(app):
             drawGuessing(app)
             
         else: # draw the end screen
-            backgroundGradient = gradient('indigo', 'darkSlateBlue', 
-                                  start = 'bottom')
-            drawRect(0, 0, app.width, app.height, fill = backgroundGradient)
-            drawLabel(f'You won {app.totalScore}/25000 points this game!', 
-                      app.width // 2, 200, size = 72, fill = 'white')
-
-            green50 = rgb(151, 232, 81)
-            drawRect(app.width // 2, app.height // 2, 200, 100, 
-                     fill = green50, align = 'center')
-            drawLabel(f'Play Again', app.width // 2, app.height // 2, 
-                      size = 24, fill = 'white')
+            drawEnd(app)
 
 
 def postGuess_onMousePress(app, mouseX, mouseY):
@@ -568,7 +574,23 @@ def postGuess_onMousePress(app, mouseX, mouseY):
 
 # However, we must draw the starting screen here after the user starts a new
 # game because endGame_redrawAll is called after any mouse press
+
+def drawEnd(app):
+    backgroundGradient = gradient('indigo', 'darkSlateBlue', 
+                            start = 'bottom')
+    drawRect(0, 0, app.width, app.height, fill = backgroundGradient)
+    drawLabel(f'You won {app.totalScore}/25000 points this game!', 
+                app.width // 2, 200, size = 72, fill = 'white')
+
+    green50 = rgb(151, 232, 81)
+    drawRect(app.width // 2, app.height // 2, 200, 100, 
+                fill = green50, align = 'center')
+    drawLabel(f'Play Again', app.width // 2, app.height // 2, 
+                size = 24, fill = 'white')
+
 def endGame_redrawAll(app):
+    print(f'final: {app.round}')
+    drawEnd(app)
     if app.round == 0:
         drawStart(app)
 
@@ -577,8 +599,10 @@ def endGame_onMousePress(app, mouseX, mouseY):
     if (app.width // 2 - 100 <= mouseX <= app.width // 2 + 100 and
         app.height // 2 - 50 <= mouseY <= app.height // 2 + 50):
         resetGame(app)
+        print('reset')
+        # what is happening here (round ends at 5 for some reason?)
         setActiveScreen('starting')
-
+        
 
 def main():
     runAppWithScreens(width = 1400, height = 860, 
