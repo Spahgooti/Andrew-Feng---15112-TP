@@ -5,6 +5,9 @@ from PIL import Image
 from getLocationImages import initializeLocations, Location
 
 def onAppStart(app):
+    app.backgroundGradient = gradient('indigo', 'darkSlateBlue', 
+                                      start = 'bottom')
+
     # from my phone's camera
     app.defaultImageWidth = 4032
     app.defaultImageHeight = 3024
@@ -101,12 +104,12 @@ def starting_redrawAll(app):
     drawStart(app)
 
 def drawStart(app): # This will be used several times
-    backgroundGradient = gradient('indigo', 'darkSlateBlue', start = 'bottom')
+
     normalColor = rgb(151, 232, 81)
     hardColor = rgb(233, 69, 96)
     wordOutline = rgb(204, 48, 46)
 
-    drawRect(0, 0, app.width, app.height, fill=backgroundGradient)
+    drawRect(0, 0, app.width, app.height, fill = app.backgroundGradient)
     drawLabel('CMU Geoguessr', app.width // 2, 200, size = 128, fill = 'white',
               border = wordOutline, borderWidth = 3, bold = True)
 
@@ -173,6 +176,18 @@ def drawGuessing(app): # This will be used several times
     app.gameLocations[app.round].draw(app, imageCenterDX, imageCenterDY, app.imageScale)
     drawImage(CMUImage(app.mapView), app.mapTopLeftX, app.mapTopLeftY, 
               opacity = app.mapOpacity)
+    
+
+    locationName = app.gameLocations[app.round].name
+    width = 16 * len(locationName) + 150
+    drawRect(app.width - (width + 50), 50, width, 50,
+             border = 'white', borderWidth = 4, fill = app.backgroundGradient)
+    
+    locationName = app.gameLocations[app.round]
+    drawLabel(locationName.name, app.width - (width + 25), 75, size = 24, 
+              fill = 'white', align = 'left')
+    drawLabel(f'Round {app.round + 1}/5', app.width - 125, 75, size = 24, 
+              fill = 'white')
 
     if app.guessX != None and app.guessY != None: 
         
@@ -349,9 +364,16 @@ def guessing_onKeyPress(app, key):
             app.imageScale *= 0.8
             scaledImageWidth = app.defaultImageWidth * app.imageScale
             scaledImageHeight = app.defaultImageHeight * app.imageScale
+
+            app.currDragImageDX *= 0.8
+            app.currDragImageDY *= 0.8
+            app.totalImageDX *= 0.8
+            app.totalImageDY *= 0.8
+
             imageCenterDX = app.currDragImageDX + app.totalImageDX
             imageCenterDY = app.currDragImageDY + app.totalImageDY
-            
+
+
             if imageCenterDX >= scaledImageWidth // 2 - app.width // 2:
                 app.totalImageDX = scaledImageWidth // 2 - app.width // 2
             if imageCenterDX <= -(scaledImageWidth // 2 - app.width // 2):
@@ -367,8 +389,10 @@ def guessing_onKeyPress(app, key):
         if app.imageScale <= 125/64:
             app.imageScale *= 1.25
 
-
-    print(app.imageScale)
+            app.currDragImageDX *= 1.25
+            app.currDragImageDY *= 1.25
+            app.totalImageDX *= 1.25
+            app.totalImageDY *= 1.25
 
     # if a guess has been entered, actually enter the guess
     # calculate the score/distance of the guess from the true location
@@ -444,9 +468,8 @@ def postGuess_redrawAll(app):
     # a controller is also called. If we do not show the next 'guessing'
     # screen here, there will be a delay.
     if app.guessX != None and app.guessY != None:
-        backgroundGradient = gradient('indigo', 'darkSlateBlue', 
-                                      start = 'bottom')
-        drawRect(0, 0, app.width, app.height, fill = backgroundGradient)
+
+        drawRect(0, 0, app.width, app.height, fill = app.backgroundGradient)
 
         drawLabel(f'Round {app.round + 1}: Your guess was {app.guessMeters} m away from the correct location',
                 app.width // 2, 75, size = 32, fill = 'white')
@@ -510,9 +533,7 @@ def postGuess_onMousePress(app, mouseX, mouseY):
 # game because endGame_redrawAll is called after any mouse press
 
 def drawEnd(app):
-    backgroundGradient = gradient('indigo', 'darkSlateBlue', 
-                            start = 'bottom')
-    drawRect(0, 0, app.width, app.height, fill = backgroundGradient)
+    drawRect(0, 0, app.width, app.height, fill = app.backgroundGradient)
     drawLabel(f'You won {app.totalScore}/25000 points this game!', 
                 app.width // 2, 200, size = 72, fill = 'white')
 

@@ -74,12 +74,65 @@ def initializeLocations(app):
     app.allLocations.append(Location("", 510, 634, 2, "Locations/doherty6.jpg"))
 
     app.allLocations.append(Location("", 1022, 786, 1, "Locations/donner1.jpg"))
-    app.allLocations.append(Location("", 834, 780, 1, "Locations/donner2.jpg"))
+    app.allLocations.append(Location("", 939, 811, 1, "Locations/donner2.jpg"))
     app.allLocations.append(Location("", 828, 810, 0, "Locations/donner3.jpg"))
     app.allLocations.append(Location("", 932, 740, 2, "Locations/donner4.jpg"))
 
     app.allLocations.append(Location("", 1078, 682, 1, "Locations/field1.jpg"))
     app.allLocations.append(Location("", 1074, 634, 1, "Locations/field2.jpg"))
+
+    app.allLocations.append(Location("", 1136, 472, 1, "Locations/forbes1.jpg"))
+    app.allLocations.append(Location("", 1060, 426, 1, "Locations/forbes2.jpg"))
+    app.allLocations.append(Location("", 550, 406, 1, "Locations/forbes3.jpg"))
+    app.allLocations.append(Location("", 506, 420, 1, "Locations/forbes4.jpg"))
+    app.allLocations.append(Location("", 296, 336, 0, "Locations/forbes5.jpg"))
+    app.allLocations.append(Location("", 304, 336, 1, "Locations/forbes6.jpg"))
+    app.allLocations.append(Location("", 232, 346, 1, "Locations/forbes7.jpg"))
+    app.allLocations.append(Location("", 234, 388, 1, "Locations/forbes8.jpg"))
+    app.allLocations.append(Location("", 192, 444, 2, "Locations/forbes9.jpg"))
+    app.allLocations.append(Location("", 880, 382, 0, "Locations/garage3.jpg"))
+
+    app.allLocations.append(Location("", 528, 552, 0, "Locations/ghc1.jpg"))
+    app.allLocations.append(Location("", 456, 526, 0, "Locations/ghc2.jpg"))
+    app.allLocations.append(Location("", 402, 524, 1, "Locations/ghc3.jpg"))
+    app.allLocations.append(Location("", 426, 512, 2, "Locations/ghc4.jpg"))
+    app.allLocations.append(Location("", 446, 492, 1, "Locations/ghc5.jpg"))
+    app.allLocations.append(Location("", 454, 512, 1, "Locations/ghc6.jpg"))
+    app.allLocations.append(Location("", 454, 476, 1, "Locations/ghc7.jpg"))
+    app.allLocations.append(Location("", 402, 510, 2, "Locations/ghc8.jpg"))
+    app.allLocations.append(Location("Have You Gone to OH?", 438, 492, 1, "Locations/ghc9.jpg"))
+    app.allLocations.append(Location("", 374, 524, 1, "Locations/ghc10.jpg"))
+    app.allLocations.append(Location("", 342, 532, 2, "Locations/ghc11.jpg"))
+    app.allLocations.append(Location("", 310, 508, 0, "Locations/ghc12.jpg"))
+    app.allLocations.append(Location("", 298, 444, 1, "Locations/ghc13.jpg"))
+    app.allLocations.append(Location("", 344, 474, 0, "Locations/ghc14.jpg"))
+    app.allLocations.append(Location("", 410, 418, 0, "Locations/ghc15.jpg"))
+    app.allLocations.append(Location("", 406, 460, 1, "Locations/ghc16.jpg"))
+    app.allLocations.append(Location("", 378, 510, 2, "Locations/ghc17.jpg"))
+    app.allLocations.append(Location("", 390, 524, 2, "Locations/ghc18.jpg"))
+    app.allLocations.append(Location("Where Wall You Guess?", 396, 392, 2, "Locations/ghc19.jpg"))
+    app.allLocations.append(Location("", 432, 430, 0, "Locations/ghc20.jpg"))
+
+    app.allLocations.append(Location("", 246, 706, 0, "Locations/hh1.jpg"))
+    app.allLocations.append(Location("", 208, 696, 2, "Locations/hh2.jpg"))
+    app.allLocations.append(Location("", 158, 684, 0, "Locations/hh3.jpg"))
+    app.allLocations.append(Location("", 138, 690, 2, "Locations/hh4.jpg"))
+    app.allLocations.append(Location("", 130, 676, 2, "Locations/hh5.jpg"))
+
+    app.allLocations.append(Location("", 222, 504, 1, "Locations/hhdr1.jpg"))
+    app.allLocations.append(Location("", 206, 572, 1, "Locations/hhdr2.jpg"))
+    app.allLocations.append(Location("", 174, 590, 1, "Locations/hhdr3.jpg"))
+    app.allLocations.append(Location("", 124, 644, 1, "Locations/hhdr4.jpg"))
+
+    app.allLocations.append(Location("Circle", 576, 862, 2, "Locations/hunt1.jpg"))
+    app.allLocations.append(Location("", 555, 862, 0, "Locations/hunt2.jpg"))
+    app.allLocations.append(Location("", 522, 885, 2, "Locations/hunt3.jpg"))
+    app.allLocations.append(Location("", 516, 897, 1, "Locations/hunt4.jpg"))
+    app.allLocations.append(Location("", 540, 907, 1, "Locations/hunt5.jpg"))
+
+
+
+
 
     app.allLocations.append(Location("Evacuation", 413, 170, 2, "Locations/tepper1.jpg"))
     app.allLocations.append(Location("An Enthralling Bulletin Board", 360, 216, 2, "Locations/tepper2.jpg"))
