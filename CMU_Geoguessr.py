@@ -2,94 +2,7 @@ from cmu_graphics import *
 import os
 import random
 from PIL import Image
-
-class Location():
-    def __init__(self, name, locX, locY, difficulty, fileName):
-
-        self.name = name
-        self.locX = locX
-        self.locY = locY
-
-        # difficulty ranges from 0 - 2:
-        # normal mode takes images with difficulty 0-1, and hard mode takes 
-        # images with difficulty 1-2
-        self.difficulty = difficulty
-
-        self.image = Image.open(fileName)
-        self.image = CMUImage(self.image)
-
-    def draw(self, app, dx, dy, scale):
-        
-        imageWidth, imageHeight = getImageSize(self.image)
-        newWidth, newHeight = int(imageWidth * scale), int(imageHeight * scale)
-
-        imageCenterX, imageCenterY = app.width//2 + dx, app.height//2 + dy
-        drawImage(self.image, imageCenterX, imageCenterY, align = 'center', 
-                  width = newWidth, height = newHeight)
-
-# def importImages(app): # From TA
-#     listOfImages = []
-#     path = './Locations'
-#     files = os.listdir(path)
-    
-#     for file in files:
-#         app.allLocations.append(CMUImage(Image.open(os.path.join(path, file))))
-#     return listOfImages
-
-def initializeLocations(app):
-    # app.allLocations.append(Location("Flowers and a Bench", 490, 856, 0, "Locations/baker1.jpg"))
-    # app.allLocations.append(Location("Brick Ceiling", 466, 854, 2, "Locations/baker2.jpg"))
-    # app.allLocations.append(Location("Glass Pyramid", 434, 858, 1, "Locations/baker3.jpg"))
-    # app.allLocations.append(Location("Long Hall", 440, 848, 0, "Locations/baker4.jpg"))
-    # app.allLocations.append(Location("Sofas", 458, 848, 2, "Locations/baker5.jpg"))
-
-    # app.allLocations.append(Location("Sculptures 1", 618, 788, 1, "Locations/cfa1.jpg"))
-    # app.allLocations.append(Location("Vaulted Ceiling", 630, 814, 1, "Locations/cfa2.jpg"))
-    # app.allLocations.append(Location("Sculptures 2", 612, 822, 1, "Locations/cfa3.jpg"))
-
-    # app.allLocations.append(Location("", 686, 576, 0, "Locations/cuc1.jpg"))
-    # app.allLocations.append(Location("", 708, 592, 0, "Locations/cuc2.jpg"))
-    # app.allLocations.append(Location("", 734, 542, 0, "Locations/cuc3.jpg"))
-    # app.allLocations.append(Location("", 734, 542, 0, "Locations/cuc4.jpg"))
-    # app.allLocations.append(Location("", 762, 524, 1, "Locations/cuc5.jpg"))
-    # app.allLocations.append(Location("", 714, 494, 1, "Locations/cuc6.jpg"))
-    # app.allLocations.append(Location("", 736, 514, 1, "Locations/cuc7.jpg"))
-    # app.allLocations.append(Location("", 802, 538, 0, "Locations/cuc8.jpg"))
-    # app.allLocations.append(Location("", 830, 546, 0, "Locations/cuc9.jpg"))
-    # app.allLocations.append(Location("Noodles, Don't Noodles", 770, 530, 0, "Locations/cuc10.jpg"))
-    # app.allLocations.append(Location("", 752, 528, 0, "Locations/cuc11.jpg"))
-    # app.allLocations.append(Location("", 818, 394, 1, "Locations/cuc12.jpg"))
-    # app.allLocations.append(Location("", 752, 380, 0, "Locations/cuc13.jpg"))
-
-    # app.allLocations.append(Location("", 540, 702, 0, "Locations/cut1.jpg"))
-    # app.allLocations.append(Location("", 568, 666, 0, "Locations/cut2.jpg"))
-    # app.allLocations.append(Location("", 658, 622, 0, "Locations/cut3.jpg"))
-    # app.allLocations.append(Location("", 644, 384, 0, "Locations/cut4.jpg"))
-    # app.allLocations.append(Location("", 612, 394, 1, "Locations/cut5.jpg"))
-    # app.allLocations.append(Location("", 610, 408, 0, "Locations/cut6.jpg"))
-    # app.allLocations.append(Location("", 542, 666, 1, "Locations/cut7.jpg"))
-    # app.allLocations.append(Location("Stumped?", 544, 662, 1, "Locations/cut8.jpg"))
-    # app.allLocations.append(Location("", 558, 614, 1, "Locations/cut9.jpg"))
-    # app.allLocations.append(Location("", 570, 568, 0, "Locations/cut10.jpg"))
-    # app.allLocations.append(Location("", 556, 548, 1, "Locations/cut11.jpg"))
-    # app.allLocations.append(Location("", 550, 560, 2, "Locations/cut12.jpg"))
-
-    # app.allLocations.append(Location("", 532, 386, 2, "Locations/cyert1.jpg"))
-    # app.allLocations.append(Location("", 486, 366, 2, "Locations/cyert2.jpg"))
-
-    # app.allLocations.append(Location("", 378, 664, 2, "Locations/doherty1.jpg"))
-    # app.allLocations.append(Location("", 446, 708, 1, "Locations/doherty2.jpg"))
-    # app.allLocations.append(Location("", 448, 708, 1, "Locations/doherty3.jpg"))
-    app.allLocations.append(Location("", 500, 690, 0, "Locations/doherty4.jpg"))
-    app.allLocations.append(Location("", 490, 604, 1, "Locations/doherty5.jpg"))
-    app.allLocations.append(Location("", 510, 634, 1, "Locations/doherty6.jpg"))
-
-
-    app.allLocations.append(Location("Evacuation", 413, 170, 2, "Locations/tepper1.jpg"))
-    app.allLocations.append(Location("An Enthralling Bulletin Board", 360, 216, 2, "Locations/tepper2.jpg"))
-    app.allLocations.append(Location("Big Glass Window", 364, 214, 0, "Locations/tepper3.jpg"))
-    app.allLocations.append(Location("Cathedral View", 332, 232, 1, "Locations/tepper4.jpg"))
-    app.allLocations.append(Location("Numbers", 712, 848, 1, "Locations/kraus1.jpg"))
+from getLocationImages import initializeLocations, Location
 
 def onAppStart(app):
     # from my phone's camera
@@ -107,7 +20,7 @@ def onAppStart(app):
     app.totalScore = 0
     app.roundScore = 0
 
-    app.imageScale = 0.4
+    app.imageScale = 0.512
     # These variables help store the differences between the x and y coordinates  
     # of the image's center with the center of the canvas
     app.totalImageDX = 0
@@ -423,18 +336,39 @@ def guessing_onMouseRelease(app, mouseX, mouseY):
 
 
 
-
 def guessing_onKeyPress(app, key):
+
     if key == 'space':
         if app.guessX != None and app.guessY != None: 
             setActiveScreen("postGuess")
             print(app.round)
-    if key == 'z':
-        if app.mapScale >= 0.3:
-            zoomMap(app, 0.8)
-    if key == 'x':
-        if app.mapScale <= 2:
-            zoomMap(app, 1.25)
+    if key == 'z': # zoom out
+        # if app.mapScale >= 0.3:
+        #     zoomMap(app, 0.8)
+        if app.imageScale >= 64/125:
+            app.imageScale *= 0.8
+            scaledImageWidth = app.defaultImageWidth * app.imageScale
+            scaledImageHeight = app.defaultImageHeight * app.imageScale
+            imageCenterDX = app.currDragImageDX + app.totalImageDX
+            imageCenterDY = app.currDragImageDY + app.totalImageDY
+            
+            if imageCenterDX >= scaledImageWidth // 2 - app.width // 2:
+                app.totalImageDX = scaledImageWidth // 2 - app.width // 2
+            if imageCenterDX <= -(scaledImageWidth // 2 - app.width // 2):
+                app.totalImageDX = -(scaledImageWidth // 2 - app.width // 2)
+            if imageCenterDY >= scaledImageHeight // 2 - app.height // 2:
+                app.totalImageDY = scaledImageHeight // 2 - app.height // 2
+            if imageCenterDY <= -(scaledImageHeight // 2 - app.height // 2):
+                app.totalImageDY = -(scaledImageHeight // 2 - app.height // 2)
+
+    if key == 'x': # zoom in
+        # if app.mapScale <= 2:
+        #     zoomMap(app, 1.25)
+        if app.imageScale <= 125/64:
+            app.imageScale *= 1.25
+
+
+    print(app.imageScale)
 
     # if a guess has been entered, actually enter the guess
     # calculate the score/distance of the guess from the true location
@@ -589,7 +523,6 @@ def drawEnd(app):
                 size = 24, fill = 'white')
 
 def endGame_redrawAll(app):
-    print(f'final: {app.round}')
     drawEnd(app)
     if app.round == 0:
         drawStart(app)
@@ -599,8 +532,7 @@ def endGame_onMousePress(app, mouseX, mouseY):
     if (app.width // 2 - 100 <= mouseX <= app.width // 2 + 100 and
         app.height // 2 - 50 <= mouseY <= app.height // 2 + 50):
         resetGame(app)
-        print('reset')
-        # what is happening here (round ends at 5 for some reason?)
+
         setActiveScreen('starting')
         
 
