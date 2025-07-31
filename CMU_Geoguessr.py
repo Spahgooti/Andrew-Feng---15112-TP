@@ -1,5 +1,4 @@
 from cmu_graphics import *
-import os
 import random
 from PIL import Image
 from getLocationImages import initializeLocations, Location
@@ -12,10 +11,11 @@ def onAppStart(app):
     app.defaultImageWidth = 4032
     app.defaultImageHeight = 3024
 
+    app.inTutorial = False
+
     app.allLocations = []
     initializeLocations(app)
 
-        
     # Variables that pertain to a specific game
     app.gameDifficulty = None
     app.gameLocations = []
@@ -71,6 +71,7 @@ def resetGame(app):
     app.totalScore = 0
     app.round = 0
     app.gameDifficulty = None
+    app.inTutorial = False
 
 def resetRound(app):
 
@@ -122,29 +123,60 @@ def drawStart(app): # This will be used several times
              fill = normalColor, align = 'center')
     drawRect(app.width // 2, 650, buttonWidth, buttonHeight, 
              fill = hardColor, align = 'center')
+    drawRect(app.width - 125, app.height - 75, buttonWidth, buttonHeight,
+             fill = 'gray', opacity = 50, align = 'center')
     
     drawLabel('Normal Mode', app.width // 2, 525, size = 24, fill = 'white')
     drawLabel('Hard Mode', app.width // 2, 650, size = 24, fill = 'white')   
+    drawLabel('How to Play', app.width - 125, app.height - 75, size = 24,
+              fill = 'white', opacity = 50)
 
+    if app.inTutorial:
+        drawRect(app.width // 2, app.height // 2, 900, 600,
+                fill = app.backgroundGradient, border = 'white',
+                borderWidth = 4, align = 'center')
+        drawLabel('The main goal of this game is to guess the location at which a series of images have been taken, all of which are from CMU.', 
+                  app.width // 2, app.height // 2 - 200, fill = 'white',
+                  size = 16)
+        drawLabel('You can left click to move around the shown image and map, and right click on the map to enter your guess.', 
+                  app.width // 2, app.height // 2 - 100, fill = 'white',
+                  size = 16)
+        drawLabel('Use the z and x keys to zoom in and out of either the shown image or the map by hovering your mouse over either one.', 
+                  app.width // 2, app.height // 2, fill = 'white',
+                  size = 16)
+        drawLabel('Also, there are two modes, with Hard Mode containing images in more obscure places. (Sometimes very obscure)', 
+                  app.width // 2, app.height // 2  + 100, fill = 'white',
+                  size = 16)
+        drawLabel('Good luck and have fun!', 
+                  app.width // 2, app.height // 2  + 200, fill = 'white',
+                  size = 24)
 
+    
 
 def starting_onMousePress(app, mouseX, mouseY):
     buttonWidth = 200
     buttonHeight = 100
     # user clicked normal mode
-    if (app.width//2 - buttonWidth//2 <= mouseX <= app.width//2 + buttonWidth//2 and
-        525 - buttonHeight//2 <= mouseY <= 525 + buttonHeight//2):
-        app.gameDifficulty = 'Normal'
-        app.gameLocations = getGameLocations(app)
-        setActiveScreen('guessing')
+
+    if not app.inTutorial:
+        if(app.width // 2 - buttonWidth // 2 <= mouseX <= app.width // 2 + buttonWidth//2
+        and 525 - buttonHeight // 2 <= mouseY <= 525 + buttonHeight // 2):
+            app.gameDifficulty = 'Normal'
+            app.gameLocations = getGameLocations(app)
+            setActiveScreen('guessing')
     
     # user clicked hard mode
-    if (app.width//2 - buttonWidth//2 <= mouseX <= app.width//2 + buttonWidth//2 and
-        650 - buttonHeight//2 <= mouseY <= 650 + buttonHeight//2):
-        app.gameDifficulty = 'Hard'
-        app.gameLocations = getGameLocations(app)
-        setActiveScreen('guessing')
-
+    if not app.inTutorial:
+        if(app.width//2 - buttonWidth // 2 <= mouseX <= app.width//2 + buttonWidth // 2
+        and 650 - buttonHeight//2 <= mouseY <= 650 + buttonHeight//2):
+            app.gameDifficulty = 'Hard'
+            app.gameLocations = getGameLocations(app)
+            setActiveScreen('guessing')
+    
+    # user clicked 'how to play'
+    if(app.width - 125 - buttonWidth // 2 <= mouseX <= app.width - 125 + buttonWidth // 2
+       and app.height - 75 - buttonHeight // 2 <= mouseY <= app.height - 75 + buttonHeight // 2):
+        app.inTutorial = not app.inTutorial
 
 
 def getGameLocations(app):
