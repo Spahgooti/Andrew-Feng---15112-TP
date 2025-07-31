@@ -49,6 +49,7 @@ def onAppStart(app):
                                 app.mapHeight // 2 - app.mapViewHeight // 2, 
                                 app.mapWidth // 2 + app.mapViewWidth // 2, 
                                 app.mapHeight // 2 + app.mapViewHeight // 2))
+    # Found the .crop() method from here: https://pillow.readthedocs.io/en/stable/handbook/tutorial.html#geometrical-transforms
     app.mapOpacity = 100
     
     # coordinates of the top left of the cropped region on the canvas
@@ -141,11 +142,11 @@ def drawStart(app): # This will be used several times
         drawLabel('You can left click to move around the shown image and map, and right click on the map to enter your guess.', 
                   app.width // 2, app.height // 2 - 100, fill = 'white',
                   size = 16)
-        drawLabel('Use the z and x keys to zoom in and out of either the shown image or the map by hovering your mouse over either one.', 
+        drawLabel('Then, click space to finalize your guess.', 
                   app.width // 2, app.height // 2, fill = 'white',
                   size = 16)
-        drawLabel('Also, there are two modes, with Hard Mode containing images in more obscure places. (Sometimes very obscure)', 
-                  app.width // 2, app.height // 2  + 100, fill = 'white',
+        drawLabel('Use the z and x keys to zoom in and out of either the shown image or the map by hovering your mouse over either one.', 
+                  app.width // 2, app.height // 2 + 100, fill = 'white',
                   size = 16)
         drawLabel('Good luck and have fun!', 
                   app.width // 2, app.height // 2  + 200, fill = 'white',
@@ -348,7 +349,6 @@ def moveMap(app, mouseX, mouseY):
             app.totalMapDX = -(app.mapWidth // 2 - app.mapViewWidth // 2)
             app.currDragMapDX = 0
             app.startDragX = mouseX
-
         
         if mapViewTop <= 0:
             mapViewTop = 0
