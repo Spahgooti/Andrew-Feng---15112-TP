@@ -32,9 +32,9 @@ def initializeLocations(app):
     app.allLocations.append(Location("Long Hall", 440, 848, 0, "Locations/baker4.jpg"))
     app.allLocations.append(Location("Sofas", 458, 848, 2, "Locations/baker5.jpg"))
 
-    app.allLocations.append(Location("Sculptures 1", 618, 788, 1, "Locations/cfa1.jpg"))
+    app.allLocations.append(Location("Sculptures", 618, 788, 1, "Locations/cfa1.jpg"))
     app.allLocations.append(Location("Vaulted Ceiling", 630, 814, 1, "Locations/cfa2.jpg"))
-    app.allLocations.append(Location("Sculptures 2", 612, 822, 1, "Locations/cfa3.jpg"))
+    app.allLocations.append(Location("Sculptures", 612, 822, 1, "Locations/cfa3.jpg"))
 
     app.allLocations.append(Location("", 686, 576, 0, "Locations/cuc1.jpg"))
     app.allLocations.append(Location("", 708, 592, 0, "Locations/cuc2.jpg"))
@@ -147,10 +147,19 @@ def initializeLocations(app):
     app.allLocations.append(Location("", 270, 748, 1, "Locations/mall5.jpg"))
     app.allLocations.append(Location("Does This Tickle Your Crane(ium)", 469, 795, 0, "Locations/mall6.jpg"))
 
+    app.allLocations.append(Location("", 817, 777, 0, "Locations/mm1.jpg"))
+    app.allLocations.append(Location("", 846, 756, 2, "Locations/mm2.jpg"))
+    app.allLocations.append(Location("'Surely Nobody Gets This'", 843, 759, 2, "Locations/mm3.jpg"))
+    app.allLocations.append(Location("", 822, 744, 1, "Locations/mm4.jpg"))
+
+    app.allLocations.append(Location("", 364, 816, 1, "Locations/porter1.jpg"))
+    app.allLocations.append(Location("", 241, 790, 1, "Locations/porter2.jpg"))
+    app.allLocations.append(Location("", 226, 823, 1, "Locations/porter3.jpg"))
+    app.allLocations.append(Location("", 216, 835, 0, "Locations/porter4.jpg"))
+    app.allLocations.append(Location("It's Not Just a Boulder", 168, 828, 2, "Locations/porter1.jpg"))
 
 
-
-    app.allLocations.append(Location("Evacuation", 413, 170, 2, "Locations/tepper1.jpg"))
+    app.allLocations.append(Location("", 413, 170, 2, "Locations/tepper1.jpg"))
     app.allLocations.append(Location("An Enthralling Bulletin Board", 360, 216, 2, "Locations/tepper2.jpg"))
     app.allLocations.append(Location("Big Glass Window", 364, 214, 0, "Locations/tepper3.jpg"))
     app.allLocations.append(Location("Cathedral View", 332, 232, 1, "Locations/tepper4.jpg"))
