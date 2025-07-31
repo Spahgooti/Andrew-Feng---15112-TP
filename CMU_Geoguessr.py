@@ -256,10 +256,7 @@ def guessing_onMouseMove(app, mouseX, mouseY):
 
 
 def guessing_onMousePress(app, mouseX, mouseY, button):
-    # if the mouse is on the map, enter a guess on the map
-    # set a variable like "app.guessEntered" to True
 
-    # if the mouse is on the image of the location
     app.startDragX = mouseX
     app.startDragY = mouseY
     if button == 0:
@@ -285,7 +282,7 @@ def guessing_onMouseDrag(app, mouseX, mouseY):
 
     if app.isDraggingImage:
         moveImage(app, mouseX, mouseY)
-    elif app.isDraggingMap: # the map is being dragged
+    elif app.isDraggingMap:
         moveMap(app, mouseX, mouseY)
 
 
@@ -327,7 +324,7 @@ def moveMap(app, mouseX, mouseY):
         
         # The signs for app.currDragMap DX and DY are negative, unlike with the 
         # location image.
-        # This is because we are dragging the box cropping the map, and not the
+        # This is because we are dragging a "box" cropping the map, and not the
         # map itself. (Which reverses the sign)
         mapViewLeft = app.mapWidth // 2 - app.mapViewWidth // 2 - app.currDragMapDX - app.totalMapDX
         mapViewTop = app.mapHeight // 2 - app.mapViewHeight // 2 - app.currDragMapDY - app.totalMapDY
@@ -520,7 +517,7 @@ def postGuess_redrawAll(app):
     # Note that we show the next round in this redrawAll in addition to in
     # guess_redrawAll because guess_redrawAll will only be called after
     # a controller is also called. If we do not show the next 'guessing'
-    # screen here, there will be a delay.
+    # screen here, there will be a delay before the next round gets shown.
     if app.guessX != None and app.guessY != None:
 
         drawRect(0, 0, app.width, app.height, fill = app.backgroundGradient)
