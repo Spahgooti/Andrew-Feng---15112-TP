@@ -128,8 +128,24 @@ def initializeLocations(app):
     app.allLocations.append(Location("", 555, 862, 0, "Locations/hunt2.jpg"))
     app.allLocations.append(Location("", 522, 885, 2, "Locations/hunt3.jpg"))
     app.allLocations.append(Location("", 516, 897, 1, "Locations/hunt4.jpg"))
-    app.allLocations.append(Location("", 540, 907, 1, "Locations/hunt5.jpg"))
+    app.allLocations.append(Location("", 538, 903, 1, "Locations/hunt5.jpg"))
+    app.allLocations.append(Location("", 561, 909, 1, "Locations/hunt6.jpg"))
+    app.allLocations.append(Location("", 546, 879, 0, "Locations/hunt7.jpg"))
+    app.allLocations.append(Location("", 534, 885, 1, "Locations/hunt8.jpg"))
+    app.allLocations.append(Location("", 520, 891, 1, "Locations/hunt9.jpg"))
+    app.allLocations.append(Location("", 532, 871, 1, "Locations/hunt10.jpg"))
 
+    app.allLocations.append(Location("Numbers", 712, 848, 1, "Locations/kraus1.jpg"))
+    app.allLocations.append(Location("Yo that's deep", 691, 858, 1, "Locations/kraus2.jpg"))
+    app.allLocations.append(Location("PROHIBITED!", 681, 849, 2, "Locations/kraus3.jpg")) # check this one
+    app.allLocations.append(Location("Posner Center", 718, 789, 1, "Locations/kraus4.jpg"))
+
+    app.allLocations.append(Location("", 342, 708, 0, "Locations/mall1.jpg"))
+    app.allLocations.append(Location("Some Nice Flowers", 360, 712, 0, "Locations/mall2.jpg"))
+    app.allLocations.append(Location("", 456, 733, 1, "Locations/mall3.jpg"))
+    # app.allLocations.append(Location("Three Balls", 472, 733, 1, "Locations/mall4.jpg")) Image is the wrong size... oops
+    app.allLocations.append(Location("", 270, 748, 1, "Locations/mall5.jpg"))
+    app.allLocations.append(Location("Does This Tickle Your Crane(ium)", 469, 795, 0, "Locations/mall6.jpg"))
 
 
 
@@ -138,4 +154,4 @@ def initializeLocations(app):
     app.allLocations.append(Location("An Enthralling Bulletin Board", 360, 216, 2, "Locations/tepper2.jpg"))
     app.allLocations.append(Location("Big Glass Window", 364, 214, 0, "Locations/tepper3.jpg"))
     app.allLocations.append(Location("Cathedral View", 332, 232, 1, "Locations/tepper4.jpg"))
-    app.allLocations.append(Location("Numbers", 712, 848, 1, "Locations/kraus1.jpg"))
+    

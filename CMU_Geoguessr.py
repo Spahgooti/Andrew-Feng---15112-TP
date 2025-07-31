@@ -23,7 +23,7 @@ def onAppStart(app):
     app.totalScore = 0
     app.roundScore = 0
 
-    app.imageScale = 0.512
+    app.imageScale = 64/125
     # These variables help store the differences between the x and y coordinates  
     # of the image's center with the center of the canvas
     app.totalImageDX = 0
@@ -78,6 +78,9 @@ def resetRound(app):
     app.guessY = None
     app.guessMeters = None
 
+    app.mapWidth = app.defaultMapWidth
+    app.mapHeight = app.defaultMapHeight
+    app.map = app.map.resize((int(app.defaultMapWidth), int(app.defaultMapHeight)))
     app.mapView = app.map.crop((app.mapWidth // 2 - app.mapViewWidth // 2, 
                                 app.mapHeight // 2 - app.mapViewHeight // 2, 
                                 app.mapWidth // 2 + app.mapViewWidth // 2, 
@@ -88,7 +91,7 @@ def resetRound(app):
     app.totalMapDY = 0
     app.mapScale = 1
         
-    app.imageScale = 0.4
+    app.imageScale = 64/125
     app.totalImageDX = 0
     app.totalImageDY = 0
     app.currDragImageDX = 0
@@ -179,12 +182,12 @@ def drawGuessing(app): # This will be used several times
     
 
     locationName = app.gameLocations[app.round].name
-    width = 16 * len(locationName) + 150
-    drawRect(app.width - (width + 50), 50, width, 50,
+    bannerWidth = 16 * len(locationName) + 150
+    drawRect(app.width - (bannerWidth + 50), 50, bannerWidth, 50,
              border = 'white', borderWidth = 4, fill = app.backgroundGradient)
     
     locationName = app.gameLocations[app.round]
-    drawLabel(locationName.name, app.width - (width + 25), 75, size = 24, 
+    drawLabel(locationName.name, app.width - (bannerWidth + 25), 75, size = 24, 
               fill = 'white', align = 'left')
     drawLabel(f'Round {app.round + 1}/5', app.width - 125, 75, size = 24, 
               fill = 'white')
@@ -240,8 +243,8 @@ def guessing_onMousePress(app, mouseX, mouseY, button):
 
             # setting the coordinates of app.guessX and app.guessY to be with
             # respect of the top left corner of the map, rather than the canvas
-            app.guessX = mouseX - app.mapTopLeftX + mapViewLeft
-            app.guessY = mouseY - app.mapTopLeftY + mapViewTop
+            app.guessX = (mouseX - app.mapTopLeftX) + mapViewLeft
+            app.guessY = (mouseY - app.mapTopLeftY) + mapViewTop
 
 
 
@@ -353,81 +356,96 @@ def guessing_onMouseRelease(app, mouseX, mouseY):
 
 def guessing_onKeyPress(app, key):
 
+    if key == 'enter':
+        print(f'guessX: {app.guessX * 1/app.mapScale}, guessY: {app.guessY * 1/app.mapScale} (wrt to original map)')
+
     if key == 'space':
         if app.guessX != None and app.guessY != None: 
             setActiveScreen("postGuess")
-            print(app.round)
     if key == 'z': # zoom out
-        # if app.mapScale >= 0.3:
-        #     zoomMap(app, 0.8)
-        if app.imageScale >= 64/125:
-            app.imageScale *= 0.8
-            scaledImageWidth = app.defaultImageWidth * app.imageScale
-            scaledImageHeight = app.defaultImageHeight * app.imageScale
+        if app.mapOpacity != 100: # the mouse is not over the map
+            if app.imageScale >= 64/125:
+                zoomImage(app, 4/5)
 
-            app.currDragImageDX *= 0.8
-            app.currDragImageDY *= 0.8
-            app.totalImageDX *= 0.8
-            app.totalImageDY *= 0.8
+                scaledImageWidth = app.defaultImageWidth * app.imageScale
+                scaledImageHeight = app.defaultImageHeight * app.imageScale
 
-            imageCenterDX = app.currDragImageDX + app.totalImageDX
-            imageCenterDY = app.currDragImageDY + app.totalImageDY
+                imageCenterDX = app.currDragImageDX + app.totalImageDX
+                imageCenterDY = app.currDragImageDY + app.totalImageDY
 
-
-            if imageCenterDX >= scaledImageWidth // 2 - app.width // 2:
-                app.totalImageDX = scaledImageWidth // 2 - app.width // 2
-            if imageCenterDX <= -(scaledImageWidth // 2 - app.width // 2):
-                app.totalImageDX = -(scaledImageWidth // 2 - app.width // 2)
-            if imageCenterDY >= scaledImageHeight // 2 - app.height // 2:
-                app.totalImageDY = scaledImageHeight // 2 - app.height // 2
-            if imageCenterDY <= -(scaledImageHeight // 2 - app.height // 2):
-                app.totalImageDY = -(scaledImageHeight // 2 - app.height // 2)
+                if imageCenterDX >= scaledImageWidth // 2 - app.width // 2:
+                    app.totalImageDX = scaledImageWidth // 2 - app.width // 2
+                if imageCenterDX <= -(scaledImageWidth // 2 - app.width // 2):
+                    app.totalImageDX = -(scaledImageWidth // 2 - app.width // 2)
+                if imageCenterDY >= scaledImageHeight // 2 - app.height // 2:
+                    app.totalImageDY = scaledImageHeight // 2 - app.height // 2
+                if imageCenterDY <= -(scaledImageHeight // 2 - app.height // 2):
+                    app.totalImageDY = -(scaledImageHeight // 2 - app.height // 2)
+        else: # the mouse is over the map
+            if app.mapScale >= 64/125:
+                zoomMap(app, 4/5)
 
     if key == 'x': # zoom in
-        # if app.mapScale <= 2:
-        #     zoomMap(app, 1.25)
-        if app.imageScale <= 125/64:
-            app.imageScale *= 1.25
+        if app.mapOpacity != 100: # the mouse is not over the map
+            if app.imageScale <= 125/64:
+                zoomImage(app, 5/4)
+        else: # the mouse is over the map
+            if app.mapScale <= 125/64:
+                zoomMap(app, 5/4)
 
-            app.currDragImageDX *= 1.25
-            app.currDragImageDY *= 1.25
-            app.totalImageDX *= 1.25
-            app.totalImageDY *= 1.25
+def zoomImage(app, scaleModifier):
+    app.imageScale *= scaleModifier
+    app.currDragImageDX *= scaleModifier
+    app.currDragImageDY *= scaleModifier
+    app.totalImageDX *= scaleModifier
+    app.totalImageDY *= scaleModifier
 
-    # if a guess has been entered, actually enter the guess
-    # calculate the score/distance of the guess from the true location
-    # add score to the user's current score
-    # switch the screen to the post guess screen
-
-################################################################################
-#FIX THIS LATER
-################################################################################
 def zoomMap(app, scaleModifier):
 
     app.mapScale *= scaleModifier
     app.mapWidth = app.defaultMapWidth * app.mapScale
     app.mapHeight =  app.defaultMapHeight * app.mapScale
     
-    app.totalMapDX = app.mapScale * (app.currDragMapDX + app.totalMapDX)
-    app.totalMapDY = app.mapScale * (app.currDragMapDY + app.totalMapDY)
+    app.totalMapDX = scaleModifier * (app.currDragMapDX + app.totalMapDX)
+    app.totalMapDY = scaleModifier * (app.currDragMapDY + app.totalMapDY)
 
-    mapViewLeft = app.mapWidth // 2 - app.mapViewWidth // 2  - app.currDragMapDX- app.totalMapDX
+    mapViewLeft = app.mapWidth // 2 - app.mapViewWidth // 2  - app.currDragMapDX - app.totalMapDX
     mapViewTop = app.mapHeight // 2 - app.mapViewHeight // 2 - app.currDragMapDY - app.totalMapDY
-    mapViewRight = app.mapWidth // 2 + app.mapViewWidth // 2 - app.currDragMapDX- app.totalMapDX
+    mapViewRight = app.mapWidth // 2 + app.mapViewWidth // 2 - app.currDragMapDX - app.totalMapDX
     mapViewBottom = app.mapHeight // 2 + app.mapViewHeight // 2 - app.currDragMapDY - app.totalMapDY
 
-    mapCenterX = (mapViewLeft + mapViewRight) // 2
-    mapCenterY = (mapViewTop + mapViewBottom) // 2
+    # This is buggy with the display of the guess. If we zoom out of the map near
+    # the edge of the map, we have to shift the map back into the view because
+    # otherwise, there will be empty space. However, the guess won't be shifted
+    # properly. To fix this, (see below)
+    if mapViewLeft <= 0:
+        mapViewLeft = 0
+        mapViewRight = app.mapViewWidth
+    if mapViewTop <= 0:
+        mapViewTop = 0
+        mapViewBottom = app.mapViewHeight
+    if mapViewRight >= app.mapWidth:
+        mapViewRight = app.mapWidth
+        mapViewLeft = app.mapWidth - app.mapViewWidth
+    if mapViewBottom >= app.mapHeight:
+        mapViewBottom = app.mapHeight
+        mapViewTop = app.mapHeight - app.mapViewWidth
+
 
     if app.guessX != None and app.guessY != None:
-        app.guessX = app.mapScale * app.guessX
-        app.guessY = app.mapScale * app.guessY
+        app.guessX = scaleModifier * app.guessX
+        app.guessY = scaleModifier * app.guessY
+    
+    # we just call moveMap to update the cropped map, which fixes everything.
+    app.startDragX = 0
+    app.startDragY = 0
+    moveMap(app, 0, 0)
 
     app.map = app.map.resize((int(app.mapWidth), int(app.mapHeight)))
     app.mapView = app.map.crop((mapViewLeft, mapViewTop, mapViewRight, 
                                 mapViewBottom))
 
-    # casting width and height to ints because of some cmu graphics bug
+
 
 ################################################################################
 # Post Guess Screen
@@ -435,15 +453,19 @@ def zoomMap(app, scaleModifier):
 
 def postGuess_onScreenActivate(app):
     app.roundScore = calculateScore(app)
-    app.guessMeters = int(getDistance(app.guessX, app.guessY, 
-                          app.gameLocations[app.round].locX,
-                          app.gameLocations[app.round].locY) / 1.48)
+    # app.guessX and app.guessY have to be scaled because the user may have
+    # zoomed into the map
+    app.guessMeters = int(getDistance(app.guessX * 1/app.mapScale, 
+                                      app.guessY * 1/app.mapScale, 
+                                      app.gameLocations[app.round].locX,
+                                      app.gameLocations[app.round].locY) / 1.48)
     app.totalScore += app.roundScore
 
 def calculateScore(app):
-    distance = getDistance(app.guessX, app.guessY, 
-                        app.gameLocations[app.round].locX,
-                        app.gameLocations[app.round].locY)
+    distance = getDistance(app.guessX * 1/app.mapScale, 
+                           app.guessY * 1/app.mapScale, 
+                           app.gameLocations[app.round].locX,
+                           app.gameLocations[app.round].locY)
     
     # 1362 pixels width --> 924 meters
     # 1050 pixels height --> 699 meters
@@ -484,8 +506,8 @@ def postGuess_redrawAll(app):
         # Like before, app.guessX and app.guessY are currently stored 
         # with respect to the top left corner of the map, not the canvas,
         # so we must do some math here
-        guessX = app.guessX // 2 + (app.width // 2  - w/2)
-        guessY = app.guessY // 2 + (app.height // 2 - h/2)
+        guessX = (app.guessX * 1/app.mapScale) // 2 + (app.width // 2  - w/2)
+        guessY = (app.guessY * 1/app.mapScale) // 2 + (app.height // 2 - h/2)
 
         #Same as above:
         trueX = app.gameLocations[app.round].locX // 2 + (app.width // 2  - w/2)
